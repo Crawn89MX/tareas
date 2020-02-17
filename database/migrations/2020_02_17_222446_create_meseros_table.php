@@ -16,6 +16,7 @@ class CreateMeserosTable extends Migration
         Schema::create('meseros', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
+            
             $table->timestamps();
         });
     }
