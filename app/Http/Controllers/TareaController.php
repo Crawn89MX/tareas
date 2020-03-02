@@ -66,8 +66,8 @@ class TareaController extends Controller
     {
         //
         //$tarea = consultar tarea where id =$tarea
-        dd($tarea);
-        return view('tarea.tareaShow')->with(['tarea' => $tarea]);
+        //dd($tarea);
+        return view('tarea.tareaShow', compact('tarea'));
     }
 
     /**
@@ -79,6 +79,7 @@ class TareaController extends Controller
     public function edit(Tarea $tarea)
     {
         //
+        return view('tarea.tareaForm' ,compact('tarea'));
     }
 
     /**
@@ -91,6 +92,13 @@ class TareaController extends Controller
     public function update(Request $request, Tarea $tarea)
     {
         //
+        $tarea->tarea = $request->tarea;
+        $tarea->descripcion = $request->descripcion;
+        $tarea->fecha_entrega = $request->fecha_entrega;
+        $tarea->prioridad = $request->prioridad;
+        $tarea->save();
+
+        return redirect()->route('tarea.show',$tarea->id);
     }
 
     /**
@@ -102,5 +110,7 @@ class TareaController extends Controller
     public function destroy(Tarea $tarea)
     {
         //
+        $tarea->delete();
+        return redirect()->route('tarea.index');
     }
 }
